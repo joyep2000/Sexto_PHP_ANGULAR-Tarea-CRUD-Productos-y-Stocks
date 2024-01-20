@@ -1,0 +1,68 @@
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">{{ title }}</h6>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="cliente" (ngSubmit)="grabar()">
+      <div class="mb-2">
+        <label for="Nombre">Nombre</label>
+        <input class="form-control" type="text" formControlName="Nombre">
+        @if (cliente.invalid && (cliente.dirty || cliente.touched)) {
+        <div class="alert">
+          @if (cliente.errors?.["required"]) {
+          <div class="ng-invalid">Nombre es requerido</div>
+          }
+        </div>
+        }
+      </div>
+      <div class="mb-2">
+        <label for="Direccion">Direccion</label>
+        <input class="form-control" type="text" formControlName="Direccion">
+        @if (cliente.invalid && (cliente.dirty || cliente.touched)) {
+        <div class="alert">
+          @if (cliente.errors?.["required"]) {
+          <div class="ng-invalid">Direccion es requerida</div>
+          }
+        </div>
+        }
+        <div class="mb-2">
+          <label for="Telefono">Telefono</label>
+          <input class="form-control" type="text" formControlName="Telefono">
+          @if (cliente.invalid && (cliente.dirty || cliente.touched)) {
+          <div class="alert">
+            @if (cliente.errors?.["required"]) {
+            <div class="ng-invalid">El numero telefonico es requerido</div>
+            }@else if (cliente.errors?.["minlength"]) {
+            <div>Debe tener minimo 7 caracteres.</div>
+            }@else if (cliente.errors?.["maxlength"]) {
+            <div>Debe tener maximo 17 caracteres.</div>
+            }
+          </div>
+          }
+        </div>
+        <div class="mb-2">
+          <label for="Correo">Correo</label>
+          <input class="form-control" type="email" formControlName="Correo">
+          @if (cliente.invalid && (cliente.dirty || cliente.touched)) {
+          <div class="alert">
+            @if (cliente.errors?.["required"]) {
+            <div class="ng-invalid">El correo electrónico es requerido</div>
+            }@else if (cliente.errors?.["email"]) {
+            <div>No posee el formato de correo electrónico</div>
+            }
+          </div>
+          }
+        </div>
+
+        <div class="mb-2">
+          <button class="btn btn-primary" type="submit" [disabled]="!cliente.valid">
+            Grabar
+          </button>
+          <button class="btn btn-secondary" routerLink="/clientes">
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

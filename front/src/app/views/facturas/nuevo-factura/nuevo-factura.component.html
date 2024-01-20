@@ -1,0 +1,56 @@
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">{{ title }}</h6>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="factura" (ngSubmit)="grabar()">
+      <div class="mb-2">
+        <label for="ID_cliente">Cliente</label>
+        <select class="form-control" formControlName="ID_cliente">
+          <option value="0">Seleccione una opción</option>
+          @for (cliente of ListaCliente; track cliente.ID_cliente) {
+          <option [value]="cliente.ID_cliente">{{ cliente.Nombre }}</option>
+          }
+        </select>
+        @if (factura.invalid && (factura.dirty || factura.touched)) {
+        <div class="alert alert-danger">
+          @if (factura.errors?.["required"]) {
+          <div class="bg-primary">Cliente es requerido</div>
+          }
+        </div>
+        }
+      </div>
+      <div class="mb-2">
+        <label for="Total">Total</label>
+        <input type="number" class="form-control" formControlName="Total" />
+        @if (factura.invalid && (factura.dirty || factura.touched)) {
+        <div class="alert">
+          @if (factura.errors?.["required"]) {
+          <div class="ng-invalid">Total es requerido</div>
+          }
+        </div>
+        }
+      </div>
+      <div class="mb-2">
+        <label for="Estado">Estado</label>
+        <input type="text" class="form-control" formControlName="Estado" />
+        @if (factura.invalid && (factura.dirty || factura.touched)) {
+        <div class="alert">
+          @if (factura.errors?.["required"]) {
+          <div class="ng-invalid">El estado es requerido</div>
+          }
+        </div>
+        }
+      </div>
+
+      <div class="mb-2">
+        <button type="submit" class="btn btn-primary" [disabled]="!factura.valid">
+          Grabar
+        </button>
+        <button class="btn btn-secondary" routerLink="/facturas">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
